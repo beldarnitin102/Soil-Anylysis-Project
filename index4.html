@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoilScope - Advanced Soil Analysis Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Note: Original body background is in style.css or implicitly set by Tailwind/animated-bg */
+        }
+
+        /* Style for modal transitions */
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Styles copied from index4.html for existing components (assuming they are in style.css) */
+        .navbar-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.7); /* slate-900/70 */
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.5); /* slate-800/50 */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 70, 229, 0.2); /* indigo-500/20 */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white overflow-x-hidden">
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="particle" style="width: 6px; height: 6px; top: 15%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 8px; height: 8px; top: 70%; left: 85%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 4px; height: 4px; top: 85%; left: 15%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 10px; height: 10px; top: 25%; left: 75%; animation-delay: 1s;"></div>
+        <div class="particle" style="width: 5px; height: 5px; top: 60%; left: 45%; animation-delay: 3s;"></div>
+        <div class="particle" style="width: 7px; height: 7px; top: 40%; left: 90%; animation-delay: 5s;"></div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 navbar-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-seedling text-white text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">SoilScope</span>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#" onclick="showPage(event, 'home')" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300 flex items-center space-x-2">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="#" onclick="showPage(event, 'upload')" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300 flex items-center space-x-2">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Upload Image</span>
+                    </a>
+                    
+                    <a href="#" onclick="showPage(event, 'scanner')" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300 flex items-center space-x-2">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Scanner</span>
+                    </a>
+                    
+                    <a href="#" onclick="showPage(event, 'community')" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300 flex items-center space-x-2">
+                        <i class="fas fa-users"></i>
+                        <span>Community</span>
+                    </a>
+                    
+                    <a href="#" onclick="toggleVoiceAssistant()" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300 flex items-center space-x-2">
+                        <i class="fas fa-microphone"></i>
+                        <span>Voice Assistant</span>
+                    </a>
+                    
+                    <div class="dropdown">
+                        <div class="menu-toggle flex items-center space-x-2 text-gray-300 hover:text-indigo-400 transition-colors duration-300 cursor-pointer">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            
+                            <a href="#" onclick="showPage(event, 'about')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors flex items-center space-x-2 border-t border-indigo-500/20">
+                                <i class="fas fa-info-circle"></i>
+                                <span>About</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:hidden">
+                    <button onclick="toggleMobileMenu()" class="menu-toggle">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="hidden lg:flex space-x-3">
+                    <button onclick="showPage(event, 'login')" class="glass-card px-5 py-2.5 rounded-xl font-medium hover:bg-white/10 transition-all duration-300 shadow-md">
+                        Login
+                    </button>
+                    <button onclick="showPage(event, 'register')" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 rounded-xl font-medium hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Register
+                    </button>
+                </div>
+                </div>
+            <div id="mobileMenu" class="mobile-menu">
+                <a href="#" onclick="showPage(event, 'home')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors">Home</a>
+                <a href="#" onclick="showPage(event, 'upload')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors">Upload Image</a>
+                <a href="#" onclick="showPage(event, 'scanner')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors">Scanner</a>
+                <a href="#" onclick="showPage(event, 'community')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors">Community</a>
+                <a href="#" onclick="showPage(event, 'login')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors font-semibold border-t border-indigo-500/30 mt-2">Login</a>
+                <a href="#" onclick="showPage(event, 'register')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors font-semibold">Register</a>
+                <a href="#" onclick="showPage(event, 'about')" class="block px-4 py-3 text-sm hover:bg-indigo-500/20 transition-colors">About</a>
+            </div>
+            </div>
+    </nav>
+
+    <div class="chatbot-toggle" onclick="toggleChatbot()"><i class="fas fa-comments text-white text-xl"></i></div>
+    <div id="chatbotPanel" class="chatbot-panel flex flex-col">
+        <div class="p-6 border-b border-indigo-500/30">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center"><i class="fas fa-robot text-white"></i></div>
+                    <div><h3 class="font-semibold">AI Assistant</h3><p class="text-xs text-gray-400">Online</p></div>
+                </div>
+                <button onclick="toggleChatbot()" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="flex-1 p-4 overflow-y-auto" id="chatMessages">
+            <div class="mb-4"><div class="bg-indigo-500/20 p-3 rounded-lg max-w-xs"><p class="text-sm">Hello! I'm your AI soil analysis assistant. Ask me anything!</p></div></div>
+        </div>
+        <div class="p-4 border-t border-indigo-500/30">
+            <div class="flex space-x-2">
+                <input type="text" id="chatInput" placeholder="Ask about crops..." class="flex-1 bg-slate-800 border border-indigo-500/30 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button onclick="sendMessage()" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-2 rounded-lg"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div id="homePage" class="page">
+            <section class="relative min-h-screen flex items-center justify-center animated-bg">
+                <div class="absolute inset-0 bg-black/40"></div>
+                <div class="relative z-10 text-center max-w-5xl mx-auto px-4">
+                    <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 fade-in hero-text">Revolutionize Your Soil Analysis</h1>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 fade-in max-w-2xl mx-auto" style="animation-delay: 0.3s;">Advanced AI-powered soil composition analysis with real-time insights.</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in" style="animation-delay: 0.6s;">
+                        <button onclick="showPage(event, 'register')" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-4 rounded-xl text-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 pulse-glow">Join SoilScope</button>
+                        <button onclick="showPage(event, 'login')" class="glass-card px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition-all duration-300 transform hover:scale-105">Already a Member? Login</button>
+                    </div>
+                    </div>
+            </section>
+            <section class="py-24 px-4 max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-bold mb-6 fade-in">Powerful Features</h2>
+                    <p class="text-xl text-gray-400 fade-in max-w-2xl mx-auto">Comprehensive tools powered by cutting-edge AI technology.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-hover glass-card p-8 rounded-2xl fade-in"><div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-microscope text-white text-2xl"></i></div><h3 class="text-xl font-semibold mb-4">AI Analysis</h3><p class="text-gray-400">99.5% accuracy in soil composition analysis.</p></div>
+                    <div class="card-hover glass-card p-8 rounded-2xl fade-in" style="animation-delay: 0.2s;"><div class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-leaf text-white text-2xl"></i></div><h3 class="text-xl font-semibold mb-4">Smart Recommendations</h3><p class="text-gray-400">Personalized fertilizer and crop suggestions.</p></div>
+                    <div class="card-hover glass-card p-8 rounded-2xl fade-in" style="animation-delay: 0.4s;"><div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-chart-line text-white text-2xl"></i></div><h3 class="text-xl font-semibold mb-4">Real-time Monitoring</h3><p class="text-gray-400">Track soil health with interactive dashboards.</p></div>
+                    <div class="card-hover glass-card p-8 rounded-2xl fade-in" style="animation-delay: 0.6s;"><div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-mobile-alt text-white text-2xl"></i></div><h3 class="text-xl font-semibold mb-4">Mobile Ready</h3><p class="text-gray-400">Access your data anywhere, anytime.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="loginPage" class="page hidden">
+            <section class="min-h-screen flex items-center justify-center pt-20 pb-12 px-4 animated-bg">
+                <div class="w-full max-w-md mx-auto fade-in">
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl font-bold hero-text">Welcome Back!</h1>
+                        <p class="text-gray-400 mt-2">Sign in to access your advanced soil analysis dashboard.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl shadow-2xl">
+                        <form id="loginForm">
+                            <div class="mb-5">
+                                <label for="login-email" class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
+                                <input type="email" id="login-email" class="w-full bg-slate-800 border border-indigo-500/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors" required placeholder="your.email@example.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="login-password" class="block text-sm font-medium mb-2 text-gray-300">Password</label>
+                                <input type="password" id="login-password" class="w-full bg-slate-800 border border-indigo-500/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors" required placeholder="••••••••">
+                                <a href="#" class="text-sm text-indigo-400 hover:text-indigo-300 float-right mt-2">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 rounded-xl text-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                Login
+                            </button>
+                        </form>
+                        <p class="mt-6 text-center text-sm text-gray-400">
+                            Don't have an account? 
+                            <a href="#" onclick="showPage(event, 'register')" class="text-indigo-400 hover:text-indigo-300 font-medium">Register here</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="registerPage" class="page hidden">
+            <section class="min-h-screen flex items-center justify-center pt-20 pb-12 px-4 animated-bg">
+                <div class="w-full max-w-md mx-auto fade-in">
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl font-bold hero-text">Create Account</h1>
+                        <p class="text-gray-400 mt-2">Join SoilScope to unlock powerful analysis tools.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl shadow-2xl">
+                        <form id="registerForm">
+                            <div class="mb-5">
+                                <label for="register-name" class="block text-sm font-medium mb-2 text-gray-300">Full Name</label>
+                                <input type="text" id="register-name" class="w-full bg-slate-800 border border-indigo-500/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors" required placeholder="John Doe">
+                            </div>
+                            <div class="mb-5">
+                                <label for="register-email" class="block text-sm font-medium mb-2 text-gray-300">Email Address</label>
+                                <input type="email" id="register-email" class="w-full bg-slate-800 border border-indigo-500/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors" required placeholder="your.email@example.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="register-password" class="block text-sm font-medium mb-2 text-gray-300">Password</label>
+                                <input type="password" id="register-password" class="w-full bg-slate-800 border border-indigo-500/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors" required placeholder="Min 8 characters">
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 rounded-xl text-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                Register
+                            </button>
+                        </form>
+                        <p class="mt-6 text-center text-sm text-gray-400">
+                            Already have an account? 
+                            <a href="#" onclick="showPage(event, 'login')" class="text-indigo-400 hover:text-indigo-300 font-medium">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="uploadPage" class="page hidden">
+            <section class="min-h-screen pt-32 pb-12 px-4 animated-bg">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12 fade-in"><h1 class="text-5xl md:text-6xl font-bold mb-6 hero-text">Upload Soil Image</h1><p class="text-xl text-gray-300">Get instant AI-powered analysis from your soil sample image.</p></div>
+                    <div class="glass-card p-8 rounded-2xl fade-in" style="animation-delay: 0.2s;">
+                        <div class="upload-zone p-12 rounded-2xl text-center mb-8" id="uploadZone">
+                            <i class="fas fa-cloud-upload-alt text-6xl text-indigo-400 mb-6"></i>
+                            <h3 class="text-2xl font-semibold mb-4">Drag & Drop Your Image</h3><p class="text-gray-400 mb-6">Or click to browse</p>
+                            <input type="file" id="fileInput" accept="image/*" class="hidden">
+                            <button onclick="document.getElementById('fileInput').click()" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 rounded-xl font-medium">Choose File</button>
+                        </div>
+                        <div id="imagePreview" class="hidden mb-8"><img id="previewImg" class="w-full max-w-md mx-auto rounded-xl shadow-lg"></div>
+                        <button id="analyzeBtn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-4 rounded-xl text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>Analyze Soil Sample</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="scannerPage" class="page hidden">
+            <section class="min-h-screen pt-32 pb-12 px-4 animated-bg">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6 hero-text">QR Code Scanner</h1>
+                        <p class="text-xl text-gray-300">Scan QR codes to access soil data and reports instantly.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="bg-slate-800 p-4 rounded-2xl text-center mb-8">
+                            <div id="qr-reader" class="w-full rounded-2xl"></div>
+                            <div id="qr-reader-results" class="mt-4 text-green-400"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <button id="startScannerBtn" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-4 rounded-xl font-medium flex items-center justify-center space-x-2"><i class="fas fa-camera"></i><span>Start Camera</span></button>
+                            <button class="glass-card px-6 py-4 rounded-xl font-medium flex items-center justify-center space-x-2"><i class="fas fa-upload"></i><span>Upload QR Image</span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="communityPage" class="page hidden">
+            <section class="min-h-screen pt-32 pb-12 px-4 animated-bg">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    
+                    <div class="lg:col-span-3 glass-card p-6 rounded-2xl flex flex-col h-[90vh]">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">Community Chat</h2>
+                            <span class="text-sm text-green-400">● 245 online</span>
+                        </div>
+
+                        <div id="communityMessages" class="flex-1 space-y-6 overflow-y-auto pr-2">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center font-bold">JM</div>
+                                <div>
+                                    <p class="font-semibold text-gray-200">Mahendra patil <span class="text-xs text-gray-400 font-normal ml-2">2 min ago</span></p>
+                                    <p class="text-gray-300 text-sm mt-1">Just tested my soil pH - got 6.5! Perfect for my corn crop this season. Thanks for the SoilScope recommendation! 👍</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center font-bold">SA</div>
+                                <div>
+                                    <p class="font-semibold text-gray-200">Amit khurana <span class="text-xs text-gray-400 font-normal ml-2">5 min ago</span></p>
+                                    <p class="text-gray-300 text-sm mt-1">My nitrogen levels are showing 85% - should I reduce fertilizer application? Any advice from experienced farmers?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex items-center gap-3">
+                            <input id="communityInput" type="text" placeholder="Share your farming insights..." class="w-full bg-[#35435E] border-none rounded-lg px-4 py-3 text-sm placeholder-gray-400 focus:ring-2 focus:ring-purple-500 transition-all duration-300">
+                            <button onclick="sendCommunityMessage()" class="bg-purple-600 hover:bg-purple-700 text-white rounded-lg w-12 h-12 flex-shrink-0 flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h3 class="text-lg font-bold mb-5 flex items-center"><i class="fa-solid fa-chart-line text-blue-400 mr-3"></i>Live Dashboard</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between items-center mb-1 text-sm">
+                                        <span class="text-gray-300">Soil pH</span>
+                                        <span id="ph-value" class="font-semibold">6.8</span>
+                                    </div>
+                                    <div class="w-full bg-[#35435E] rounded-full h-2"><div id="ph-bar" class="bg-gradient-to-r from-purple-500 to-indigo-500 h-2 rounded-full" style="width: 68%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1 text-sm">
+                                        <span class="text-gray-300">Moisture</span>
+                                        <span id="moisture-value" class="font-semibold text-cyan-400">45%</span>
+                                    </div>
+                                    <div class="w-full bg-[#35435E] rounded-full h-2"><div id="moisture-bar" class="bg-cyan-400 h-2 rounded-full" style="width: 45%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1 text-sm">
+                                        <span class="text-gray-300">Nitrogen</span>
+                                        <span id="nitrogen-value" class="font-semibold text-green-400">78%</span>
+                                    </div>
+                                    <div class="w-full bg-[#35435E] rounded-full h-2"><div id="nitrogen-bar" class="bg-green-400 h-2 rounded-full" style="width: 78%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h3 class="text-lg font-bold mb-5 flex items-center"><i class="fa-solid fa-users text-purple-400 mr-3"></i>Community Stats</h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between items-center text-gray-300"><span>Active Members</span><span class="font-bold text-white">12,450</span></div>
+                                <div class="flex justify-between items-center text-gray-300"><span>Soil Analyses Shared</span><span class="font-bold text-cyan-400">8,920</span></div>
+                                <div class="flex justify-between items-center text-gray-300"><span>Success Stories</span><span class="font-bold text-green-400">2,340</span></div>
+                                <div class="flex justify-between items-center text-gray-300"><span>Expert Advisors</span><span class="font-bold text-orange-400">156</span></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h3 class="text-lg font-bold mb-5 flex items-center"><i class="fa-solid fa-bolt text-yellow-400 mr-3"></i>Quick Actions</h3>
+                            <div class="flex flex-col space-y-3">
+                                <button id="share-btn" class="w-full text-left font-semibold p-4 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 transition-opacity"><i class="fa-solid fa-share-alt mr-3 w-5"></i>Share Analysis</button>
+                                <button id="expert-btn" class="w-full text-left font-semibold p-4 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 hover:opacity-90 transition-opacity"><i class="fa-solid fa-user-doctor mr-3 w-5"></i>Ask Expert</button>
+                                <button id="story-btn" class="w-full text-left font-semibold p-4 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-90 transition-opacity"><i class="fa-solid fa-trophy mr-3 w-5"></i>Success Story</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="aboutPage" class="page hidden">
+            <section class="min-h-screen pt-32 pb-12 px-4 animated-bg">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16"><h1 class="text-5xl md:text-6xl font-bold mb-6 hero-text">About SoilScope</h1><p class="text-xl text-gray-300 max-w-3xl mx-auto">Revolutionizing agriculture through advanced soil analysis and AI-powered insights.</p></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                        <div class="glass-card p-8 rounded-2xl">
+                            <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                            <p class="text-gray-300">At SoilScope, we're dedicated to transforming modern agriculture through cutting-edge soil analysis technology. Our AI-powered platform provides farmers, researchers, and agricultural professionals with precise, actionable insights to optimize crop yields and promote sustainable farming practices.</p>
+                        </div>
+                        <div class="glass-card p-8 rounded-2xl">
+                            <h2 class="text-3xl font-bold mb-6">Our Technology</h2>
+                            <p class="text-gray-300">We believe that understanding your soil is the foundation of successful agriculture. Our advanced algorithms analyze soil composition, nutrient levels, and environmental factors to deliver personalized recommendations that help you make informed decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="resultsDashboard" class="hidden bg-slate-900/95 border-t border-indigo-500/30 py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12"><h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Analysis Results</h2><p class="text-xl text-gray-300">Complete soil analysis and recommendations</p></div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-chart-bar text-indigo-400 mr-3"></i>Soil Metrics</h3><div class="space-y-4"></div></div>
+                <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-seedling text-emerald-400 mr-3"></i>Recommended Crops</h3><div class="space-y-4"></div></div>
+                <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-flask text-amber-400 mr-3"></i>Fertilizer Plan</h3><div class="space-y-4"></div></div>
+            </div>
+            <div class="text-center"><button onclick="hideResults()" class="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-3 rounded-xl font-medium">Close Results</button></div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900/50 border-t border-indigo-500/20 py-12 px-4">
+    </footer>
+
+    <div id="expert-modal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="bg-[#263043] rounded-2xl p-6 w-full max-w-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Agricultural Experts</h3>
+                <button id="close-expert-modal" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                <div class="bg-[#35435E] p-4 rounded-lg">
+                    <img src="images\mandal,_biswapati.jpg" alt="Expert 1" class="w-24 h-24 rounded-full mx-auto mb-2 border-2 border-green-500">
+                    <p class="font-semibold">Dr. Biswapati Mandal</p><p class="text-xs text-gray-400">Agronomist</p>
+                </div>
+                <div class="bg-[#35435E] p-4 rounded-lg">
+                    <img src="images\download.jpg" alt="Expert 2" class="w-24 h-24 rounded-full mx-auto mb-2 border-2 border-green-500">
+                    <p class="font-semibold">Dr. NK Lenka</p><p class="text-xs text-gray-400">Soil Scientist</p>
+                </div>
+                <div class="bg-[#35435E] p-4 rounded-lg">
+                    <img src="images\download (1).jpg" alt="Expert 3" class="w-24 h-24 rounded-full mx-auto mb-2 border-2 border-green-500">
+                    <p class="font-semibold">Dr. Sultan Ahmed Ismail</p><p class="text-xs text-gray-400">Crop Specialist</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="story-modal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="bg-[#263043] rounded-2xl p-6 w-full max-w-md transform scale-95 transition-transform duration-300 text-center">
+            <div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold">Farmer Success Story</h3><button id="close-story-modal" class="text-gray-400 hover:text-white">&times;</button></div>
+            <img src="images\speaker-24.jpg" alt="Farmer" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500">
+            <h4 class="text-lg font-semibold">Cheruvayal Raman</h4>
+            <p class="text-sm text-gray-400 mt-2">"Using SoilScope's recommendations, I optimized my fertilizer usage and saw a 30% increase in my wheat yield this season. The AI analysis is a game-changer for small farmers like me!"</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    
+    <script src="seed.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        
+         const onlineSpan = document.querySelector('#communityPage .text-green-400');
+    if (onlineSpan) {
+        setInterval(() => {
+            // Fluctuate between 220 and 270
+            const onlineCount = Math.floor(Math.random() * 51) + 220;
+            onlineSpan.textContent = `● ${onlineCount} online`;
+        }, 3000); // Update every 3 seconds
+    }
+         const communityInput = document.getElementById('communityInput');
+
+            // --- 1. Community Chat Logic ---
+            window.sendCommunityMessage = function() {
+                const messagesContainer = document.getElementById('communityMessages');
+                const messageText = communityInput.value.trim();
+
+                if (messageText) {
+                    const userMessageHTML = `<div class="flex items-start gap-4"><div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center font-bold">ME</div><div><p class="font-semibold text-gray-200">You <span class="text-xs text-gray-400 font-normal ml-2">now</span></p><p class="text-gray-300 text-sm mt-1">${messageText}</p></div></div>`;
+                    messagesContainer.insertAdjacentHTML('beforeend', userMessageHTML);
+                    communityInput.value = '';
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                    // Simulate a reply after 2 seconds
+                    setTimeout(() => {
+                        const responses = ["That's a great point!", "Thanks for sharing, I'll look into that.", "Interesting, has anyone else tried this?", "I agree, SoilScope has been very helpful." , "My latest soil test showed low pH too, great advice!",
+                        "Has anyone tried using bone meal for Phosphorus?",
+                        "I planted corn this week, wish me luck! 🌽" ];
+                        const names = ['Ashish Damle', 'Ravi Kumavat', 'Kundan Kumavat', 'Mahendra patil',
+                                       'Sarah Lee'];
+                        const colors = ['bg-pink-500', 'bg-sky-500', 'bg-red-500', 'bg-green-500',
+                                        'bg-yellow-500'];
+
+                        const randomIndex = Math.floor(Math.random() * names.length);
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        
+                        // Note: The original index5.html had a slight error in the initials for the reply, 
+                        // using names[randomIndex].charAt(0)}G. This has been kept for replication.
+                        const replyMessageHTML = `<div class="flex items-start gap-4"><div class="flex-shrink-0 w-10 h-10 rounded-full ${colors[randomIndex]} flex items-center justify-center font-bold">${names[randomIndex].charAt(0)}G</div><div><p class="font-semibold text-gray-200">${names[randomIndex]} <span class="text-xs text-gray-400 font-normal ml-2">now</span></p><p class="text-gray-300 text-sm mt-1">${randomResponse}</p></div></div>`;
+                        messagesContainer.insertAdjacentHTML('beforeend', replyMessageHTML);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }, 2000);
+                }
+            }
+
+            communityInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') { e.preventDefault(); sendCommunityMessage(); }
+            });
+
+            // --- 2. Live Dashboard Logic ---
+            function updateDashboard() {
+                // pH value (6.0 to 7.5)
+                const newPh = (Math.random() * 1.5 + 6.0).toFixed(1);
+                document.getElementById('ph-value').textContent = newPh;
+                document.getElementById('ph-bar').style.width = `${(newPh / 10) * 100}%`;
+
+                // Moisture & Nitrogen (30% to 90%)
+                const newMoisture = Math.floor(Math.random() * 61) + 30;
+                const newNitrogen = Math.floor(Math.random() * 61) + 30;
+                document.getElementById('moisture-value').textContent = `${newMoisture}%`;
+                document.getElementById('moisture-bar').style.width = `${newMoisture}%`;
+                document.getElementById('nitrogen-value').textContent = `${newNitrogen}%`;
+                document.getElementById('nitrogen-bar').style.width = `${newNitrogen}%`;
+            }
+            setInterval(updateDashboard, 3000); // Update every 3 seconds
+
+            // --- 3. Modal Logic ---
+            const expertModal = document.getElementById('expert-modal');
+            const storyModal = document.getElementById('story-modal');
+            const expertBtn = document.getElementById('expert-btn');
+            const storyBtn = document.getElementById('story-btn');
+            const closeExpertBtn = document.getElementById('close-expert-modal');
+            const closeStoryBtn = document.getElementById('close-story-modal');
+
+            function openModal(modal) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.remove('scale-95'); // Target the inner div for transform
+            }
+            function closeModal(modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.add('scale-95'); // Target the inner div for transform
+            }
+
+            expertBtn.addEventListener('click', () => openModal(expertModal));
+            storyBtn.addEventListener('click', () => openModal(storyModal));
+            closeExpertBtn.addEventListener('click', () => closeModal(expertModal));
+            closeStoryBtn.addEventListener('click', () => closeModal(storyModal));
+        });
+    </script>
+</body>
+</html>

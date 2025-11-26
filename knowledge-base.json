@@ -1,0 +1,614 @@
+[
+    {
+        "question_pattern": "hello|hi|hey|namaste|hola|good morning|good afternoon|good evening|start|begin",
+        "reply_text": "Hi! I'm your SoilScope assistant. Ask me about soil health, pH, moisture, crops, fertilizers, or farming techniques. How can I help you today? 🌱",
+        "category": "Greetings",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "help|assistant|what can you do|about you",
+        "reply_text": "I can analyze and provide advice on soil composition, including pH, NPK levels, moisture, organic matter, and specific crop recommendations based on soil health principles.",
+        "category": "Greetings",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "what is soil analysis|purpose of soil test",
+        "reply_text": "Soil analysis is a set of chemical and physical tests to determine nutrient content, composition, and other characteristics (like pH and EC). Its purpose is to guide fertilizer application and management practices.",
+        "category": "Soil Testing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "(ph|pH).*range|ph level|soil ph|acidity|alkaline|acid.*soil",
+        "reply_text": "Most crops thrive in soil pH 6.0-7.0. Acidic soils (below 6.0) can limit nutrient uptake; add lime to raise pH. For alkaline soils (above 7.5), add sulfur or organic matter to lower pH.",
+        "category": "pH Management",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "how.*test.*ph|ph.*test|measure.*ph",
+        "reply_text": "Test soil pH using: 1) Digital pH meter (most accurate), 2) pH test strips, 3) Home test kits, or 4) Professional lab testing. Test in spring before planting for best results.",
+        "category": "pH Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "raise.*ph|increase.*ph|fix.*acidic",
+        "reply_text": "To raise soil pH (reduce acidity), apply agricultural Lime (calcium carbonate). The amount needed depends on the soil type (clay requires more) and the target pH.",
+        "category": "pH Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "lower.*ph|decrease.*ph|fix.*alkaline",
+        "reply_text": "To lower soil pH (reduce alkalinity), apply Elemental Sulfur or use organic amendments like peat moss or large amounts of compost. This process is slower and requires careful monitoring.",
+        "category": "pH Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "moisture|irrigation|water(ing)?|dry soil|wet soil|drought",
+        "reply_text": "Aim for 35-60% soil moisture depending on crop and growth stage. Water early morning to reduce evaporation, use mulch to retain moisture, and ensure proper drainage to avoid waterlogging.",
+        "category": "Water Management",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "drip.*irrigation|sprinkler|watering.*system",
+        "reply_text": "Drip irrigation is most efficient (90% efficiency vs 65% for sprinklers). It delivers water directly to roots, reduces evaporation, and prevents leaf diseases. Install with timers for consistent watering.",
+        "category": "Water Management",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "water holding capacity|WHC",
+        "reply_text": "Water Holding Capacity (WHC) is the amount of water soil can retain. Clay and organic matter increase WHC. Sandy soils have low WHC and need more frequent, lighter watering.",
+        "category": "Water Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "nitrogen|phosphorus|potassium|npk|fertilizer|nutrients",
+        "reply_text": "Balanced NPK fertilizer depends on your soil test results. Common ratios: 10-10-10 for general use, 10-26-26 for root crops, 20-10-10 for leafy greens. Always test your soil first for best results.",
+        "category": "Fertilizers",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "nitrogen.*deficiency|yellowing.*old.*leaves",
+        "reply_text": "Nitrogen (N) deficiency causes yellowing of older, lower leaves first (chlorosis), as the plant moves N to new growth. Apply high-N fertilizer like Urea or Ammonium Sulfate.",
+        "category": "Fertilizers",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "phosphorus.*deficiency|purple.*leaves",
+        "reply_text": "Phosphorus (P) deficiency causes a distinctive purplish or dark green color on the leaves, starting from the edges. Apply bone meal or high-P fertilizer (e.g., Triple Superphosphate).",
+        "category": "Fertilizers",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "potassium.*deficiency|leaf.*edge.*burn|K deficiency",
+        "reply_text": "Potassium (K) deficiency causes scorching or browning (necrosis) along the leaf margins of older leaves (known as 'edge burn'). Apply Muriate of Potash (KCl) or Sulfate of Potash.",
+        "category": "Fertilizers",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "organic.*fertilizer|natural.*fertilizer|compost.*tea",
+        "reply_text": "Organic fertilizers: Compost (slow-release nutrients), Fish Emulsion (nitrogen boost), Bone Meal (phosphorus), Kelp Meal (potassium + micronutrients). They improve soil biology and provide sustained nutrition.",
+        "category": "Fertilizers",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "micronutrient|trace element|zinc|iron|boron|manganese",
+        "reply_text": "Micronutrients (Fe, Mn, Zn, B, Cu, Mo, Cl) are vital in small amounts. Deficiency often occurs in high pH soils, as their solubility is reduced. Iron and Zinc are the most common deficiencies.",
+        "category": "Fertilizers",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "crop(s)? recommendation|what to plant|which crop|best crop",
+        "reply_text": "Crop selection depends on your soil type, climate, and season. For neutral pH (6.0-7.0): corn, wheat, soybeans, tomatoes. For acidic soil: potatoes, blueberries, azaleas. For clay soil: rice, wheat, cabbage.",
+        "category": "Crop Selection",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "corn|maize",
+        "reply_text": "Corn grows best in well-drained soil with pH 6.0-6.8, requires high nitrogen (150-200 lbs/acre), and needs consistent moisture (1-1.5 inches/week). Plant after soil temperature reaches 60°F (15°C).",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "tomato|tomatoes",
+        "reply_text": "Tomatoes prefer slightly acidic soil (pH 6.0-6.8), need consistent watering (1-2 inches/week), and benefit from calcium to prevent blossom end rot. Use stakes or cages for support. Mulch to retain moisture.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "wheat",
+        "reply_text": "Wheat thrives in well-drained soil with pH 6.0-7.0, requires moderate nitrogen (80-120 lbs/acre), and is typically planted in fall for spring harvest in temperate climates. Needs good air circulation.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "potato|potatoes",
+        "reply_text": "Potatoes prefer slightly acidic soil (pH 5.8-6.2), need loose, well-drained soil, and benefit from hilling to prevent green tubers. Avoid fresh manure which can cause scab disease.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "rice",
+        "reply_text": "Rice grows best in flooded fields with pH 5.5-7.0, requires high nitrogen and consistent water levels. Paddy fields should be leveled and have good water control systems. It is tolerant of clay soil.",
+        "category": "Specific Crops",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soybean|soybeans",
+        "reply_text": "Soybeans prefer well-drained soil with pH 6.0-7.0, are nitrogen-fixing legumes, and need adequate phosphorus and potassium. Plant when soil temperature reaches 60°F (15°C).",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "carrot|carrots",
+        "reply_text": "Carrots prefer loose, well-drained soil with pH 6.0-6.8, need consistent moisture, and benefit from high phosphorus for root development. Avoid fresh manure which can cause forked roots.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "lettuce|leafy greens",
+        "reply_text": "Lettuce prefers cool weather, well-drained soil with pH 6.0-7.0, and consistent moisture. It's a light feeder that benefits from nitrogen but needs good drainage to prevent root rot.",
+        "category": "Specific Crops",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "blueberry|blueberries",
+        "reply_text": "Blueberries require acidic soil (pH 4.5-5.5), high organic matter, and excellent drainage. They are shallow-rooted and benefit from mulch to maintain soil moisture and acidity.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "strawberry|strawberries",
+        "reply_text": "Strawberries prefer slightly acidic soil (pH 5.5-6.5), well-drained soil with high organic matter, and consistent moisture. They benefit from mulch to keep fruit clean and maintain soil moisture.",
+        "category": "Specific Crops",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "compost|organic|manure|organic matter",
+        "reply_text": "Add 2-5 kg/m² of well-decomposed compost annually. It improves soil structure, increases water retention, feeds beneficial microbes, and provides slow-release nutrients.",
+        "category": "Soil Health",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "how.*make.*compost|composting.*process",
+        "reply_text": "Composting: Mix 3:1 ratio of brown materials (carbon, e.g., leaves, paper) to green materials (nitrogen, e.g., kitchen scraps, grass). Keep moist, turn weekly, maintain 140-160°F temperature. Ready in 3-6 months.",
+        "category": "Soil Health",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil test|testing|analysis",
+        "reply_text": "Test your soil every 2-3 years for pH, NPK levels, and organic matter. Spring is ideal for testing. Use our SoilScope image analysis or get a professional lab test for detailed results including micronutrients.",
+        "category": "Soil Testing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "how.*take.*soil.*sample|collecting.*sample",
+        "reply_text": "Collect 10-15 random subsamples from the top 6-8 inches (15-20 cm) of the area. Mix them thoroughly in a clean bucket, and send about 1 cup (250 g) of the mixed sample to the lab.",
+        "category": "Soil Testing",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "reading.*soil.*report|interpret.*analysis",
+        "reply_text": "A soil report shows nutrient levels (often in ppm or lbs/acre) and categorizes them as Low, Medium, or High. Focus on pH, CEC, and Organic Matter first, then apply fertilizer only to nutrients marked Low.",
+        "category": "Soil Testing",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "pest|disease|bug|insect|fungus",
+        "reply_text": "Healthy soil supports plants' natural pest resistance. Use crop rotation, beneficial insects (like ladybugs), companion planting, and organic treatments. Avoid overwatering which can promote fungal diseases.",
+        "category": "Pest Management",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "aphid|spider mite|whitefly",
+        "reply_text": "For aphids/mites: Use neem oil, insecticidal soap, or introduce ladybugs. Spray early morning or evening. For severe infestations, use pyrethrin-based organic insecticides.",
+        "category": "Pest Management",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "spring|summer|fall|autumn|winter|season",
+        "reply_text": "Spring: Test soil, add compost, plant cool-season crops. Summer: Maintain moisture, harvest, plant heat-loving crops. Fall: Plant cover crops, add organic matter. Winter: Plan next year, protect soil.",
+        "category": "Seasonal",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "clay.*soil|heavy.*soil",
+        "reply_text": "Clay soil has small particles, is nutrient-rich, but suffers from poor drainage and compaction. Add organic matter and gypsum to improve structure and drainage. Avoid working when wet.",
+        "category": "Soil Types",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "sandy.*soil|light.*soil",
+        "reply_text": "Sandy soil has large particles, excellent drainage, but poor water and nutrient retention (low CEC). Add compost and cover crops to improve water-holding capacity and fertility.",
+        "category": "Soil Types",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "silty.*soil",
+        "reply_text": "Silty soil is composed of medium-sized particles, offering better water retention than sand and better drainage than clay. It is highly fertile but prone to compaction and erosion.",
+        "category": "Soil Types",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "loam.*soil|ideal.*soil",
+        "reply_text": "Loam soil is considered the ideal growing medium, with a balanced mix of sand, silt, and clay. It offers good drainage, aeration, and nutrient retention. A 40% sand, 40% silt, 20% clay blend is a typical loam.",
+        "category": "Soil Types",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil texture|sand silt clay proportion|feel test",
+        "reply_text": "Soil Texture is the proportion of sand, silt, and clay. Use the ribbon test: clay forms a long ribbon; silt feels smooth/floury; sand feels gritty. Texture is a permanent soil property.",
+        "category": "Soil Physics",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "cover.*crop|green.*manure",
+        "reply_text": "Cover crops: Legumes (clover, vetch) fix nitrogen, grasses (rye, oats) prevent erosion, brassicas (radish) break compaction. Plant in fall, till in spring before main crop, or leave as mulch.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "crop.*rotation|rotation.*system",
+        "reply_text": "Crop rotation prevents disease buildup and balances nutrient demand. Follow heavy feeders (corn, tomatoes) with light feeders (herbs, lettuce), then soil builders (legumes).",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "mulch|mulching|organic mulch",
+        "reply_text": "Mulch helps retain soil moisture, suppress weeds, moderate soil temperature, and add organic matter. Use straw, wood chips, leaves, or compost. Apply 2-4 inches thick, keeping it away from plant stems.",
+        "category": "Soil Health",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "earthworm|earthworms|beneficial organisms",
+        "reply_text": "Earthworms are excellent soil indicators. They improve soil structure, increase organic matter decomposition, and create channels for water and air movement. High earthworm populations indicate healthy soil.",
+        "category": "Soil Biology",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil temperature|planting temperature",
+        "reply_text": "Soil temperature affects seed germination and root growth. Most warm-season crops need soil temperatures above 60°F (15°C). Use a soil thermometer to check temperatures at planting depth.",
+        "category": "Soil Physics",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "drainage|poor drainage|waterlogged",
+        "reply_text": "Poor drainage causes waterlogging, which reduces oxygen to roots and can kill plants. Improve drainage by adding organic matter, creating raised beds, or installing drainage tiles in severe cases.",
+        "category": "Water Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "raised bed|raised beds|garden bed",
+        "reply_text": "Raised beds improve drainage, warm up faster in spring, and provide better soil control. Build 6-12 inches high with well-draining soil mix. They're especially beneficial for clay soils.",
+        "category": "Soil Health",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "fertilizer burn|over fertilization|too much fertilizer",
+        "reply_text": "Fertilizer burn occurs when too much fertilizer is applied, causing leaf scorch and root damage. Symptoms include brown leaf edges and wilting. Water thoroughly to leach excess fertilizer and reduce future applications.",
+        "category": "Fertilizers",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "foliar feeding|foliar spray|leaf fertilizer",
+        "reply_text": "Foliar feeding applies nutrients directly to leaves for quick absorption. It's useful for micronutrient deficiencies and quick fixes. Apply early morning or evening to avoid leaf burn. Don't rely solely on foliar feeding.",
+        "category": "Fertilizers",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "companion planting|plant combinations",
+        "reply_text": "Companion planting uses beneficial plant relationships. Examples: marigolds repel nematodes, beans fix nitrogen for corn, basil improves tomato flavor. Some combinations can also deter pests naturally.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "beneficial insects|ladybug|ladybugs|predatory insects",
+        "reply_text": "Beneficial insects help control pests naturally. Ladybugs eat aphids, lacewings consume many soft-bodied pests, and ground beetles prey on soil-dwelling insects. Plant diverse flowers to attract them.",
+        "category": "Pest Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "nematode|nematodes|root knot",
+        "reply_text": "Nematodes are microscopic worms that can damage plant roots. Root-knot nematodes cause galls on roots. Control with crop rotation, resistant varieties, and soil solarization. Marigolds can help suppress them.",
+        "category": "Pest Management",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "blight|fungal disease|leaf spot",
+        "reply_text": "Fungal diseases like blight and leaf spot are common in humid conditions. Prevent by improving air circulation, avoiding overhead watering, and using disease-resistant varieties. Remove infected plant material promptly.",
+        "category": "Pest Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "powdery mildew|white fungus|plant disease",
+        "reply_text": "Powdery mildew appears as white powdery coating on leaves. It thrives in humid conditions with poor air circulation. Control with proper spacing, morning watering, and fungicidal sprays if necessary.",
+        "category": "Pest Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "root rot|damping off|seedling disease",
+        "reply_text": "Root rot and damping off are caused by soil-borne fungi in wet conditions. Prevent by using well-draining soil, avoiding overwatering, and ensuring good air circulation around seedlings.",
+        "category": "Pest Management",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "weed control|weeds|herbicide",
+        "reply_text": "Weed control methods include mulching, hand weeding, hoeing, and selective herbicides. Mulch is the most organic approach. Pre-emergent herbicides prevent weed seeds from germinating.",
+        "category": "Pest Management",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "organic farming|organic certification|sustainable agriculture",
+        "reply_text": "Organic farming avoids synthetic chemicals, focuses on soil health, and uses natural pest control methods. It requires certification and emphasizes crop rotation, composting, and biological pest control.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "seed starting|germination|seedling care",
+        "reply_text": "Start seeds in sterile, well-draining soil mix. Maintain consistent moisture and temperature. Most seeds need 70-75°F for germination. Provide adequate light once seedlings emerge to prevent leggy growth.",
+        "category": "Basic Growing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "transplanting|moving plants|planting seedlings",
+        "reply_text": "Transplant seedlings when they have 2-3 true leaves. Harden off gradually by exposing to outdoor conditions. Plant at the same depth as in containers, water well, and protect from harsh sun initially.",
+        "category": "Basic Growing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "pruning|trimming|plant maintenance",
+        "reply_text": "Pruning removes dead or diseased growth, improves air circulation, and can increase yields. Use clean, sharp tools. Prune at the right time for each plant type - generally late winter for most trees and shrubs.",
+        "category": "Basic Growing",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "harvesting|when to harvest|harvest timing",
+        "reply_text": "Harvest timing varies by crop. Pick vegetables when they reach optimal size and color. Harvest in the morning when plants are hydrated. Store properly to maintain quality and extend shelf life.",
+        "category": "Basic Growing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "storage|preserving|food preservation",
+        "reply_text": "Proper storage extends harvest life. Most vegetables need cool, humid conditions. Root crops store well in cool, dark places. Some crops can be frozen, canned, or dried for long-term preservation.",
+        "category": "Basic Growing",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "season extension|cold frame|row cover",
+        "reply_text": "Extend growing seasons with cold frames, row covers, or greenhouses. These protect plants from frost and provide warmer microclimates. Use them to start plants earlier or harvest later in the season.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "microclimate|garden location|site selection",
+        "reply_text": "Microclimate affects plant growth significantly. Consider sun exposure, wind patterns, frost pockets, and drainage when selecting garden sites. South-facing slopes warm up faster in spring.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil amendment|soil improvement|soil conditioner",
+        "reply_text": "Soil amendments improve soil properties. Add compost for organic matter, sand for drainage, clay for water retention, or lime/sulfur for pH adjustment. Test soil first to determine specific needs.",
+        "category": "Soil Health",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil erosion|prevent erosion|soil conservation",
+        "reply_text": "Prevent soil erosion with cover crops, mulching, terracing on slopes, and maintaining plant cover. Erosion removes valuable topsoil and nutrients. Use contour planting on hillsides.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil contamination|heavy metals|soil pollution",
+        "reply_text": "Soil contamination can come from industrial pollution, lead paint, or excessive fertilizer use. Test soil for heavy metals if concerned. Use raised beds with clean soil for food crops in contaminated areas.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soil health indicators|soil quality|healthy soil",
+        "reply_text": "Healthy soil indicators include good structure, adequate organic matter (2-5%), active earthworm populations, good drainage, and balanced pH. Regular soil testing helps monitor soil health over time.",
+        "category": "Soil Health",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil food web|soil ecosystem|soil life",
+        "reply_text": "The soil food web includes bacteria, fungi, protozoa, nematodes, and larger organisms. This complex ecosystem breaks down organic matter, cycles nutrients, and supports plant health. Avoid practices that harm soil life.",
+        "category": "Soil Biology",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soil carbon|carbon sequestration|climate change",
+        "reply_text": "Soil stores carbon in organic matter, helping mitigate climate change. Practices like no-till farming, cover cropping, and adding compost increase soil carbon storage while improving soil health.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "precision agriculture|GPS farming|technology",
+        "reply_text": "Precision agriculture uses GPS, sensors, and data analysis to optimize farming practices. It allows variable rate application of fertilizers and pesticides, improving efficiency and reducing environmental impact.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "sustainable farming|regenerative agriculture|soil restoration",
+        "reply_text": "Sustainable farming focuses on long-term soil health and environmental protection. Practices include crop rotation, cover cropping, reduced tillage, and integrated pest management to maintain productive soils.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "farm planning|crop planning|garden design",
+        "reply_text": "Plan your farm or garden considering crop rotation, companion planting, space requirements, and seasonal timing. Keep records of what works well and adjust plans based on results and soil test recommendations.",
+        "category": "Basic Growing",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "equipment|tools|farming tools",
+        "reply_text": "Essential tools include shovels, hoes, rakes, watering cans, and soil testing kits. For larger operations, consider tillers, seeders, and irrigation systems. Choose quality tools that will last and make work easier.",
+        "category": "Basic Growing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "record keeping|farm journal|garden log",
+        "reply_text": "Keep records of planting dates, varieties, weather conditions, pest problems, and yields. This helps identify patterns, improve future planning, and track soil health changes over time.",
+        "category": "Basic Growing",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "economic|profit|farming business",
+        "reply_text": "Successful farming requires understanding costs, yields, and market prices. Calculate profit margins, consider value-added products, and diversify crops to reduce risk. Start small and scale up based on success.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "market|selling|farmers market",
+        "reply_text": "Direct marketing through farmers markets, CSAs, or farm stands can increase profits. Focus on quality, build relationships with customers, and consider organic certification for premium pricing.",
+        "category": "Advanced",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "hydroponics|soilless growing|nutrient solution",
+        "reply_text": "Hydroponics grows plants in nutrient-rich water without soil. It requires precise pH control (5.5-6.5), balanced nutrient solutions, and proper aeration. It's efficient but requires more technical knowledge.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "greenhouse|indoor growing|controlled environment",
+        "reply_text": "Greenhouses allow year-round growing with controlled temperature, humidity, and light. They require proper ventilation, heating/cooling systems, and careful attention to soil moisture and fertility.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "CEC|Cation Exchange Capacity|exchange capacity",
+        "reply_text": "Cation Exchange Capacity (CEC) measures the soil's ability to hold positively charged nutrient ions (like K+, Ca2+, Mg2+). High CEC (above 25 meq/100g) means better nutrient retention, common in clay or high organic matter soils.",
+        "category": "Soil Chemistry",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "EC|Electrical Conductivity|salinity",
+        "reply_text": "Electrical Conductivity (EC) measures soil salinity (total soluble salts). High EC (above 4.0 dS/m) indicates a saline soil, which can cause osmotic stress and inhibit water uptake by plants.",
+        "category": "Soil Testing",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "bulk density|compaction|compacted soil",
+        "reply_text": "Bulk Density is the mass of dry soil per unit volume. High bulk density (above 1.6 g/cm³ for most soils) indicates compaction, which impedes root growth, water infiltration, and air exchange.",
+        "category": "Soil Physics",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soil structure|aggregate stability",
+        "reply_text": "Soil Structure refers to how soil particles group into aggregates. Good structure (e.g., granular) is critical for water infiltration and aeration. Improve it by adding organic matter and minimizing tillage.",
+        "category": "Soil Physics",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "mycorrhizal|mycorrhizae|fungi in soil",
+        "reply_text": "Mycorrhizal Fungi form symbiotic relationships with plant roots, effectively extending the root system to improve uptake of less-mobile nutrients, especially Phosphorus and water.",
+        "category": "Soil Biology",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "rhizobium|nitrogen-fixing|legumes",
+        "reply_text": "Rhizobium Bacteria infect legume roots (beans, peas, clover) to form nodules where they fix atmospheric Nitrogen (N2) into plant-available ammonium (NH4+), a process called Nitrogen Fixation.",
+        "category": "Soil Biology",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "soil respiration|CO2 flux",
+        "reply_text": "Soil Respiration measures the CO2 released by soil microbes and roots, which is a key indicator of biological activity and the decomposition rate of organic matter. Higher respiration usually means a healthier, active soil.",
+        "category": "Soil Biology",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "mineralization|immobilization|nitrogen cycle",
+        "reply_text": "Mineralization is the conversion of organic N to plant-available inorganic N (NH4+, NO3-). Immobilization is the reverse, where microbes take up inorganic N. These processes govern N availability.",
+        "category": "Soil Chemistry",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "nitrification|denitrification|nitrogen cycle",
+        "reply_text": "Nitrification is the conversion of NH4+ to NO3- by bacteria (requires oxygen). Denitrification is the conversion of NO3- back to N2 gas (occurs in waterlogged, anaerobic soil), leading to N loss.",
+        "category": "Soil Chemistry",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "humus|what is humus",
+        "reply_text": "Humus is the stable, complex, dark brown end-product of decomposed organic matter, resisting further breakdown. It significantly increases CEC, water holding capacity, and serves as a long-term nutrient reservoir.",
+        "category": "Soil Health",
+        "level": "intermediate"
+    },
+    {
+        "question_pattern": "how.*calculate.*om|organic matter percentage",
+        "reply_text": "Soil Organic Matter (OM) is often estimated by measuring Organic Carbon (OC) in the lab and multiplying by a conversion factor (1.724). OM = OC × 1.724. Target OM is 2-5% for many crops.",
+        "category": "Soil Testing",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "how.*calculate.*fertilizer|amount.*fertilizer",
+        "reply_text": "Calculate fertilizer needs based on your soil test recommendation and the fertilizer's NPK analysis. Formula: Rate = (Nutrient needed ÷ % Nutrient in fertilizer) × 100. (e.g., 100 lbs N needed ÷ 0.46 (Urea) = 217 lbs Urea)",
+        "category": "Fertilizers",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soil test method|Mehlich|Olsen|extractant",
+        "reply_text": "Soil test methods vary. Mehlich-3 is common for acidic to neutral soils to extract P, K, Ca, Mg. Olsen method is preferred for alkaline or calcareous soils to extract available P. Always use the interpretation specific to your lab's method.",
+        "category": "Soil Testing",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "sodic soil|sodium management|gypsum",
+        "reply_text": "Sodic soils have a high concentration of exchangeable sodium (Sodium Absorption Ratio (SAR) above 13), which destroys soil structure (dispersion). Treat by applying a calcium source, like gypsum, followed by leaching.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "saline-sodic soil|remediation",
+        "reply_text": "A saline-sodic soil is both high in salts (EC above 4 dS/m) and sodium (SAR above 13). Treat with gypsum first to replace sodium, then follow with sufficient leaching (irrigation) to flush out the excess salts and sodium.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "field capacity|permanent wilting point",
+        "reply_text": "Field Capacity is the maximum water soil can hold against gravity. Permanent Wilting Point (PWP) is the moisture level where plants cannot extract water and permanently wilt. Available water is between these two points.",
+        "category": "Water Management",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "evapotranspiration|ET",
+        "reply_text": "Evapotranspiration (ET) is the sum of water lost from the soil surface (evaporation) and from the plant (transpiration). It's a key factor in determining daily irrigation needs. Use mulch to reduce evaporation.",
+        "category": "Water Management",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "soil horizon|soil profile",
+        "reply_text": "A Soil Profile is a vertical cross-section of the soil. The layers are called Horizons: O (organic), A (topsoil, organic matter), E (eluviation), B (subsoil, accumulation), and C (parent material).",
+        "category": "Soil Physics",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "what is clay mineralogy|types of clay",
+        "reply_text": "Clay Mineralogy refers to the type of layered silicate minerals in the soil (e.g., Montmorillonite, Kaolinite). 2:1 clays (like Montmorillonite) have high CEC and shrink/swell properties, while 1:1 clays (Kaolinite) have low CEC.",
+        "category": "Soil Chemistry",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "base saturation|percent base saturation",
+        "reply_text": "Base Saturation is the percentage of CEC sites occupied by basic cations (Ca, Mg, K, Na). Aim for 60-80% for optimal nutrient balance and availability, with Calcium usually dominating the percentage.",
+        "category": "Soil Chemistry",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "tillage|no-till|conservation tillage",
+        "reply_text": "No-till farming minimizes soil disturbance, which preserves soil structure, increases organic matter, reduces erosion, and saves fuel. Conventional tillage (plowing) can temporarily warm soil but degrades health over time.",
+        "category": "Advanced",
+        "level": "advanced"
+    },
+    {
+        "question_pattern": "thank you|thanks|appreciate",
+        "reply_text": "You're welcome! I'm here to help with all your soil and farming questions. Feel free to ask about specific crops, soil problems, or any other agricultural topics. Happy growing! 🌱",
+        "category": "Greetings",
+        "level": "basic"
+    },
+    {
+        "question_pattern": "goodbye|bye|see you|farewell",
+        "reply_text": "Goodbye! Remember to test your soil regularly and keep learning about sustainable farming practices. Your plants and soil will thank you! 🌾",
+        "category": "Greetings",
+        "level": "basic"
+    }
+]
